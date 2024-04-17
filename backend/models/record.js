@@ -5,6 +5,7 @@ const recordSchema = new mongoose.Schema(
 		userId: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		age: {
 			type: Number,

@@ -11,14 +11,15 @@ router.get('/', authentication, async (req, res) => {
 	try {
 		const userRecord = await Record.findOne({ userId: req.user.id });
 		if (!userRecord || userRecord.status === 'no') {
-			await Record.create({
-				userId: req.user.id,
-				age: 18,
-				gender: 'male',
-				medicalHistory: '',
-				status: 'no',
-			});
-
+			if (!userRecord) {
+				await Record.create({
+					userId: req.user.id,
+					age: 18,
+					gender: 'male',
+					medicalHistory: '',
+					status: 'no',
+				});
+			}
 			return res.json({
 				status: 'NULL',
 				message: 'No record found for the user',
